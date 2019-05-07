@@ -1,0 +1,21 @@
+{
+    "name": "elektromann/yii2-openlayers-maps",
+    "description": "Use free maps in your site",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension","map","openlayers","free map","open map"],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Elektromann",
+            "email": "elektromann@hotmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "~2.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "elektromann\\openlayers\\": ""
+        }
+    }
+}
