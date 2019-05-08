@@ -118,7 +118,8 @@ function map(options)
         }
     };
     
-    var addMarker = function(markerOptions) {
+    var addMarker = function(markerOptions)
+    {
         var overLay;
         var markerElement;
         var descriptionElement;
@@ -284,6 +285,10 @@ function map(options)
         } else if(geocoding.length > 0) {
             mapList.push(options.id);
             getCenter();
+        }
+
+        if(typeof options.callbackFunction === "string") {
+            window[options.callbackFunction](this);
         }
     };
 };

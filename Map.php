@@ -27,6 +27,7 @@ class Map extends \yii\base\Widget
     public $mapId = "map";
     public $boxWidth = "100%";
     public $boxHeight = "500px";
+    public $callbackFunction = null;
     public $type = null;
     public $center = [20.322990, 46.419281];
     public $fullScreenButton = false;
@@ -199,6 +200,7 @@ class Map extends \yii\base\Widget
             'markers' => $this->markers,
             'zoom' => $this->zoom,
             'geocoding' => $this->geocoding,
+            'callbackFunction' => $this->callbackFunction,
         ];
         
         $this->options = json_encode($options);
