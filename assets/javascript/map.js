@@ -227,6 +227,39 @@ function map(options)
         }
     };
 
+    this.newMarker = addMarker;
+
+    this.removeMarker = function(position)
+    {
+        var markers = map.getOverlays().getArray();
+        var marker = {};
+        var positionFromLonLat = ol.proj.fromLonLat(position);
+        var markerPosition = [];
+
+        for(var index = 0; index < markers.length; index++) {
+            marker = markers[index];
+            markerPosition = marker.getPosition();
+
+            if(markerPosition[0] === positionFromLonLat[0] && markerPosition[1] === positionFromLonLat[1]) {
+                map.removeOverlay(marker);
+            }
+        }
+    }
+
+    this.setView = function(center, zoom)
+    {
+        map.getView().setCenter(ol.proj.fromLonLat(center));
+        map.getView().setZoom(zoom);
+    }
+
+    this.animateView = function(centerval, zoomval)
+    {
+        map.getView().animate({
+            center: ol.proj.fromLonLat(centerval),
+            zoom: zoomval,
+        });
+    }
+
     this.addMap = function()
     {
         if(options.fullScreenButton) {
@@ -290,5 +323,10 @@ function map(options)
         if(typeof options.callbackFunction === "string") {
             window[options.callbackFunction](this);
         }
+    };
+
+    window.onresize = function()
+    {
+        setTimeout( function() { map.updateSize();}, 200);
     };
 };
