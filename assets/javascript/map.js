@@ -242,8 +242,36 @@ function map(options)
 
             if(markerPosition[0] === positionFromLonLat[0] && markerPosition[1] === positionFromLonLat[1]) {
                 map.removeOverlay(marker);
+
+                return true;
             }
         }
+
+        return false;
+    }
+
+    this.newEvent = function(event, callback)
+    {
+        map.on(event, callback);
+    }
+
+    this.getMarkerElement = function (position)
+    {
+        var markers = map.getOverlays().getArray();
+        var marker = {};
+        var positionFromLonLat = ol.proj.fromLonLat(position);
+        var markerPosition = [];
+
+        for(var index = 0; index < markers.length; index++) {
+            marker = markers[index];
+            markerPosition = marker.getPosition();
+
+            if(markerPosition[0] === positionFromLonLat[0] && markerPosition[1] === positionFromLonLat[1]) {
+                return marker.element;
+            }
+        }
+
+        return false;
     }
 
     this.setView = function(center, zoom)
@@ -258,6 +286,40 @@ function map(options)
             center: ol.proj.fromLonLat(centerval),
             zoom: zoomval,
         });
+    }
+
+    this.route = function()
+    {
+        var vectorSource = new ol.source.Vector();
+
+        map.addLayer(new ol.layer.Vector({
+            source: vectorSource
+        }));
+
+        var style = new ol.style.Style({
+            stroke: new ol.style.Stroke({
+                width: 6, color: [40, 40, 40, 0.8]
+            })
+        });
+
+        return {
+            set: function (position) {
+
+                var route = new ol.format.Polyline({
+                    factor: 1e5
+                }).readGeometry(position, {
+                    dataProjection: 'EPSG:4326',
+                    featureProjection: 'EPSG:3857'
+                });
+
+                var feature = new ol.Feature(route);
+
+                vectorSource.clear();
+
+                feature.setStyle(style);
+                vectorSource.addFeature(feature);
+            }
+        }
     }
 
     this.addMap = function()
