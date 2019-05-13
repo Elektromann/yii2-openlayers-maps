@@ -279,6 +279,14 @@ function map(options)
         return map.getView().getZoom();
     }
 
+    this.setViewByPositions = function(positions, options = {})
+    {
+        var ext = ol.extent.boundingExtent(positions);
+        ext = ol.proj.transformExtent(ext, ol.proj.get('EPSG:4326'), ol.proj.get('EPSG:3857'));
+
+        map.getView().fit(ext, options);
+    }
+
     this.setView = function(center, zoom)
     {
         map.getView().setCenter(ol.proj.fromLonLat(center));
