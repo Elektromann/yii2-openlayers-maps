@@ -273,6 +273,11 @@ function map(options)
 
         return false;
     }
+    
+    this.getZoom = function()
+    {
+        return map.getView().getZoom();
+    }
 
     this.setView = function(center, zoom)
     {
