@@ -331,6 +331,11 @@ function map(options)
 
                 feature.setStyle(style);
                 vectorSource.addFeature(feature);
+            },
+
+            clear: function()
+            {
+                vectorSource.clear();
             }
         }
     }
