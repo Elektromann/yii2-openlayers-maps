@@ -165,7 +165,15 @@ function map(options)
             markerElement.dataset.dsposition = markerOptions.descriptionPosition;
             
             overLay = document.createElement("div");
-            
+
+            if(typeof markerOptions.class != "undefined") {
+                overLay.classList.add(markerOptions.class);
+            }
+
+            if(typeof markerOptions.id != "undefined") {
+                overLay.setAttribute('id', markerOptions.id);
+            }
+
             descriptionElement = document.createElement("div");
             descriptionElement.classList.add("marker-description");
             
@@ -180,6 +188,15 @@ function map(options)
             overLay.appendChild(markerElement);
             overLay.appendChild(descriptionElement);
         } else {
+
+            if(typeof markerOptions.class != "undefined") {
+                markerElement.classList.add(markerOptions.class);
+            }
+
+            if(typeof markerOptions.id != "undefined") {
+                markerElement.setAttribute('id', markerOptions.id);
+            }
+
             overLay = markerElement;
         }
         
@@ -309,14 +326,14 @@ function map(options)
             source: vectorSource
         }));
 
-        var style = new ol.style.Style({
+        var defaultStyle = new ol.style.Style({
             stroke: new ol.style.Stroke({
                 width: 6, color: [40, 40, 40, 0.8]
             })
         });
 
         return {
-            set: function (position) {
+            set: function (position, style = defaultStyle) {
 
                 var route = new ol.format.Polyline({
                     factor: 1e5
