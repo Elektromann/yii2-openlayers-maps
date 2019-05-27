@@ -40,5 +40,12 @@ var event = {
         description.style.left = elementPosition.left;
         description.style.right = elementPosition.right;
         description.style.top = elementPosition.top;
+    },
+
+    markerClose: function()
+    {
+        var description = this.parentNode;
+
+        description.style.display = "none";
     }
 };

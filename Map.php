@@ -24,16 +24,18 @@ class Map extends \yii\base\Widget
     const GEOCODING_NOMINATIM = "nominatim";
     const GEOCODING_BINGMAPS = "bingMaps";
 
+    public $center = [20.322990, 46.419281];
+    public $markers = [];
+    public $geocoding = [];
     public $mapId = "map";
     public $boxWidth = "100%";
     public $boxHeight = "500px";
     public $callbackFunction = null;
     public $type = null;
-    public $center = [20.322990, 46.419281];
-    public $fullScreenButton = false;
-    public $markers = [];
+    public $minZoom = null;
+    public $maxZoom = null;
     public $zoom = 13;
-    public $geocoding = [];
+    public $fullScreenButton = false;
 
 
     private $options;
@@ -201,6 +203,8 @@ class Map extends \yii\base\Widget
             'zoom' => $this->zoom,
             'geocoding' => $this->geocoding,
             'callbackFunction' => $this->callbackFunction,
+            'minZoom' => $this->minZoom,
+            'maxZoom' => $this->maxZoom,
         ];
         
         $this->options = json_encode($options);

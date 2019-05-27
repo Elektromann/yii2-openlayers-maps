@@ -36,10 +36,22 @@
   display: none;
   position: absolute;
   padding: 10px;
+  padding-top: 15px;
 }
 
 .marker-description .marker-description-content {
     max-width: 100%;
     overflow: auto;
     text-align: justify;
+}
+
+.marker-description-close {
+  background: linear-gradient(45deg, transparent calc(50% - 2px), black 50%, transparent calc(50% + 2px)),
+  linear-gradient(-45deg, transparent calc(50% - 2px), black 50%, transparent calc(50% + 2px));
+  cursor: pointer;
+  height: 10px;
+  position: absolute;
+  right: 6px;
+  top: 6px;
+  width: 10px;
 }

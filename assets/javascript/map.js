@@ -124,6 +124,7 @@ function map(options)
         var markerElement;
         var descriptionElement;
         var descriptionContent;
+        var descriptionClose;
         var marker;
         var size = [];
         var elementPosition;
@@ -176,13 +177,18 @@ function map(options)
 
             descriptionElement = document.createElement("div");
             descriptionElement.classList.add("marker-description");
-            
+
+            descriptionClose = document.createElement("div");
+            descriptionClose.classList.add("marker-description-close");
+            descriptionClose.onclick = event.markerClose;
+
             descriptionContent = document.createElement("div");
             descriptionContent.classList.add("marker-description-content");
             descriptionContent.innerHTML = markerOptions.description;
             
+            descriptionElement.appendChild(descriptionClose);
             descriptionElement.appendChild(descriptionContent);
-            
+
             markerElement.onclick = event.markerClick;
             
             overLay.appendChild(markerElement);
@@ -357,6 +363,16 @@ function map(options)
         }
     }
 
+    this.setMinZoom = function(zoom)
+    {
+        map.getView().setMinZoom(zoom);
+    }
+
+    this.setMaxZoom = function(zoom)
+    {
+        map.getView().setMaxZoom(zoom);
+    }
+
     this.addMap = function()
     {
         if(options.fullScreenButton) {
@@ -367,6 +383,14 @@ function map(options)
         map.getLayers().extend(getLayer(options.type));
         map.getView().setCenter([0,0]);
         map.getView().setZoom(options.zoom);
+
+        if(options.minZoom !== null) {
+            this.setMinZoom(options.minZoom);
+        }
+
+        if(options.maxZoom !== null) {
+            this.setMaxZoom(options.maxZoom);
+        }
         
         if(typeof options.center === "string") {
             if(options.geocoding[0] === "bingMaps") {
