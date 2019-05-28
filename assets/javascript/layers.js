@@ -1,5 +1,7 @@
-function getLayer(options)
+function getLayer(options, wrap)
 {
+    console.log(wrap);
+
     if(typeof options === "object") {
         var type = options[0];
     } else {
@@ -9,7 +11,9 @@ function getLayer(options)
     var layers = {
         simple: [
             new ol.layer.Tile({
-                source: new ol.source.OSM()
+                source: new ol.source.OSM({
+                    wrapX: wrap
+                })
             })
         ],
 
@@ -19,7 +23,8 @@ function getLayer(options)
                     attributions: 'Tiles © <a href="https://services.arcgisonline.com/ArcGIS/' +
                       'rest/services/World_Topo_Map/MapServer">ArcGIS</a>',
                     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/' +
-                      'World_Topo_Map/MapServer/tile/{z}/{y}/{x}'
+                      'World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
+                    wrapX: wrap
                 })
             })
         ],
@@ -27,12 +32,14 @@ function getLayer(options)
         stamenWaterColor: [
             new ol.layer.Tile({
                 source: new ol.source.Stamen({
-                    layer: 'watercolor'
+                    layer: 'watercolor',
+                    wrapX: wrap
                 })
             }),
             new ol.layer.Tile({
                 source: new ol.source.Stamen({
-                    layer: 'terrain-labels'
+                    layer: 'terrain-labels',
+                    wrapX: wrap
                 })
             })
         ],
@@ -40,12 +47,14 @@ function getLayer(options)
         stamenTerrain: [
             new ol.layer.Tile({
                 source: new ol.source.Stamen({
-                    layer: 'terrain'
+                    layer: 'terrain',
+                    wrapX: wrap
                 })
             }),
             new ol.layer.Tile({
                 source: new ol.source.Stamen({
-                    layer: 'terrain-labels'
+                    layer: 'terrain-labels',
+                    wrapX: wrap
                 })
             })
         ],
@@ -55,7 +64,8 @@ function getLayer(options)
                 source: new ol.source.BingMaps({
                     key: typeof options.apiKey === "string" ? options.apiKey : '',
                     imagerySet: typeof options.mapType === "string" ? options.mapType : '',
-                    maxZoom: 19
+                    maxZoom: 19,
+                    wrapX: wrap
                 })
             })
         ]

@@ -36,6 +36,7 @@ class Map extends \yii\base\Widget
     public $maxZoom = null;
     public $zoom = 13;
     public $fullScreenButton = false;
+    public $wrap = true;
 
 
     private $options;
@@ -205,6 +206,7 @@ class Map extends \yii\base\Widget
             'callbackFunction' => $this->callbackFunction,
             'minZoom' => $this->minZoom,
             'maxZoom' => $this->maxZoom,
+            'wrap' => $this->wrap,
         ];
         
         $this->options = json_encode($options);

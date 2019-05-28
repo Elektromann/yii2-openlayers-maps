@@ -117,7 +117,11 @@ function map(options)
             bmCenter(next);
         }
     };
-    
+
+    /**
+     * Add new marker to the map
+     * @param markerOptions
+     */
     var addMarker = function(markerOptions)
     {
         var overLay;
@@ -326,7 +330,7 @@ function map(options)
 
     this.route = function()
     {
-        var vectorSource = new ol.source.Vector();
+        var vectorSource = new ol.source.Vector({wrapX: options.wrap});
 
         map.addLayer(new ol.layer.Vector({
             source: vectorSource
@@ -373,6 +377,11 @@ function map(options)
         map.getView().setMaxZoom(zoom);
     }
 
+    this.update = function()
+    {
+        map.updateSize();
+    };
+
     this.addMap = function()
     {
         if(options.fullScreenButton) {
@@ -380,7 +389,7 @@ function map(options)
         }
         
         map.setTarget(options.id);
-        map.getLayers().extend(getLayer(options.type));
+        map.getLayers().extend(getLayer(options.type, options.wrap));
         map.getView().setCenter([0,0]);
         map.getView().setZoom(options.zoom);
 
