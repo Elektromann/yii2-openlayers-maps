@@ -22,7 +22,7 @@ var event = {
         
         description.style.whiteSpace = "nowrap";
         description.style.maxHeight = maxHeight + "px";
-        description.children[0].style.maxHeight = (maxHeight - 20) + "px";
+        description.children[1].style.maxHeight = (maxHeight - 20) + "px";
         
         for(width; width < maxWidth && height > description.offsetHeight; width++) {
             description.style.removeProperty("white-space");
