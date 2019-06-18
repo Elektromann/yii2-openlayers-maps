@@ -1,7 +1,5 @@
 function getLayer(options, wrap)
 {
-    console.log(wrap);
-
     if(typeof options === "object") {
         var type = options[0];
     } else {
@@ -57,9 +55,11 @@ function getLayer(options, wrap)
                     wrapX: wrap
                 })
             })
-        ],
-        
-        bingMaps: [
+        ]
+    };
+
+    if(type === "bingMaps") {
+        layers.bingMaps = [
             new ol.layer.Tile({
                 source: new ol.source.BingMaps({
                     key: typeof options.apiKey === "string" ? options.apiKey : '',
@@ -68,8 +68,8 @@ function getLayer(options, wrap)
                     wrapX: wrap
                 })
             })
-        ]
-    };
+        ];
+    }
     
     return layers[type];
 };
